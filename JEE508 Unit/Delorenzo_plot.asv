@@ -2,11 +2,9 @@ clear;
 clc;
 
 % Load the data file
-load data\Delorenzo_1.lvm;
-load data\Delorenzo_2.lvm;
 load data\Delorenzo_3.lvm;
 
-data = Delorenzo_2;
+data = Delorenzo_3;
 
 t = data(:,1);          % time (s)
 uc = data(:,2);         % control signal (V)
@@ -54,7 +52,7 @@ xlabel("Time (s)")
 ylabel("Pressure (V)")
 title("Pressure Transmitter");
 
-sgtitle('    Raw Signal');
+sgtitle('      Raw Signal');
 
 % Save the figure
 saveas(gcf, 'Delorenzo Raw Signal.png')
