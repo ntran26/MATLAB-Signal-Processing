@@ -48,21 +48,22 @@ acc_3 = data(145001:155001,2);
 % Statistical properties
 mean_1 = mean(acc_1);
 std_1 = std(acc_1);
+snr_1 = snr(acc_1);
 snr_1 = mean_1/std_1;
 
 mean_2 = mean(acc_2);
 std_2 = std(acc_2);
-snr_2 = mean_2/std_2;
+snr_2 = snr(acc_2);
 
 mean_3 = mean(acc_3);
 std_3 = std(acc_3);
-snr_3 = mean_3/std_3;
+snr_3 = snr(acc_3);
 
 % Display the results
 fprintf('Noise Mean and Standard Deviation:\n');
-fprintf('1V: Mean = %.3f, Std = %.3f, SNR = %.3f dB\n', mean_1, std_1, snr_1);
-fprintf('2V: Mean = %.3f, Std = %.3f, SNR = %.3f dB\n', mean_2, std_2, snr_2);
-fprintf('3V: Mean = %.3f, Std = %.3f, SNR = %.3f dB\n', mean_3, std_3, snr_3);
+fprintf('1V: Mean = %.2f, Std = %.2f, SNR = %.2f dB\n', mean_1, std_1, snr_1);
+fprintf('2V: Mean = %.2f, Std = %.2f, SNR = %.f dB\n', mean_2, std_2, snr_2);
+fprintf('3V: Mean = %f, Std = %f, SNR = %f dB\n', mean_3, std_3, snr_3);
 
 % Design a Butterworth low-pass filter
 Fs = 10000;     % Sampling frequency
@@ -114,22 +115,23 @@ legend('Original', 'Filtered');
 
 % Statistical properties
 mean_1 = mean(filtered_acc_1);
-std_1 = std(filtered_acc_1);;
+std_1 = std(filtered_acc_1);
+snr_1 = snr(filtered_acc_1);
 snr_1 = mean_1/std_1;
 
 mean_2 = mean(filtered_acc_2);
 std_2 = std(filtered_acc_2);
-snr_2 = mean_2/std_2;
+snr_2 = snr(filtered_acc_2);
 
 mean_3 = mean(filtered_acc_3);
 std_3 = std(filtered_acc_3);
-snr_3 = mean_3/std_3;
+snr_3 = snr(filtered_acc_3);
 
 % Display the results
 fprintf('Noise Mean and Standard Deviation:\n');
-fprintf('1V: Mean = %.3f, Std = %.3f, SNR = %.3f dB\n', mean_1, std_1, snr_1);
-fprintf('2V: Mean = %.3f, Std = %.3f, SNR = %.3f dB\n', mean_2, std_2, snr_2);
-fprintf('3V: Mean = %.3f, Std = %.3f, SNR = %.3f dB\n', mean_3, std_3, snr_3);
+fprintf('1V: Mean = %f, Std = %f, SNR = %f dB\n', mean_1, std_1, snr_1);
+fprintf('2V: Mean = %f, Std = %f, SNR = %f dB\n', mean_2, std_2, snr_2);
+fprintf('3V: Mean = %f, Std = %f, SNR = %f dB\n', mean_3, std_3, snr_3);
 
 % Frequency spectrum analysis
 L = 10000;
