@@ -1,60 +1,42 @@
-% Clear the workspace and command window
-clear;
-clc;
-
 % Load the data
-load('data\lab2-2\fs_10k.lvm');
+load data\lab2-2\fs_10k.lvm;
 data = fs_10k;
 
-% Extract time vector
-t = data(1:10001, 1);
-Fs = 10000; % Sampling frequency (Hz)
-
-% Speed = 1V
+% Segmentation of Data
 acc_1 = data(40001:50001, 2);
-
-% Speed = 2V
 acc_2 = data(95001:105001, 2);
-
-% Speed = 3V
 acc_3 = data(145001:155001, 2);
 
-% Perform FFT
-n = length(t);
-f = (0:n-1)*(Fs/n); % Frequency range
+% Sampling frequency
+Fs = 10000;
 
-Y1 = fft(acc_1);
-Y2 = fft(acc_2);
-Y3 = fft(acc_3);
-
-% Compute amplitude spectrum (normalized)
-amplitude_1 = abs(Y1)/n;
-amplitude_2 = abs(Y2)/n;
-amplitude_3 = abs(Y3)/n;
-
-% Plot the amplitude spectrum for each speed
+% Plot the frequency spectrum for each acceleration data
 figure;
 
+% Frequency spectrum for 1V
 subplot(3,1,1);
-plot(f, amplitude_1);
-title('Amplitude Spectrum of Acceleration at 1V');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude');
-grid on;
+plotFrequencySpectrum(acc_1, Fs);
+title('Frequency Spectrum at 1V');
 
+% Frequency spectrum for 2V
 subplot(3,1,2);
-plot(f, amplitude_2);
-title('Amplitude Spectrum of Acceleration at 2V');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude');
-grid on;
+plotFrequencySpectrum(acc_2, Fs);
+title('Frequency Spectrum at 2V');
 
+% Frequency spectrum for 3V
 subplot(3,1,3);
-plot(f, amplitude_3);
-title('Amplitude Spectrum of Acceleration at 3V');
-xlabel('Frequency (Hz)');
-ylabel('Magnitude');
-grid on;
+plotFrequencySpectrum(acc_3, Fs);
+title('Frequency Spectrum at 3V');
 
-% Limit the x-axis to focus on the relevant frequency range (e.g., up to 500 Hz)
-% xlim([0 500]);
+% Function to plot frequency spectrum
+function plotFrequencySpectrum(signal, Fs)
+    N = length(signal);
+    Y = fft(signal);
+    f = (0:N-1)*(Fs/N);     % Frequency range
+    P = abs(Y)/N;           % Normalized amplitude
+    plot(f, P);
+    xlabel('Frequency (Hz)');
+    ylabel('Magnitude');
+    xlim([0 Fs/2]);         % Plot only up to Nyquist frequency
+    grid on;
+end
